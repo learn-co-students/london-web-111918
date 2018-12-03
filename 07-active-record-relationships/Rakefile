@@ -1,8 +1,7 @@
 require_relative './config/environment'
-
 require 'sinatra/activerecord/rake'
 
-desc 'Run a irb session with all the files from ./app required'
+desc "Start our app console"
 task :console do
   Pry.start
 end

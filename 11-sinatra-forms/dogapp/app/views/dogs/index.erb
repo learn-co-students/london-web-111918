@@ -1,0 +1,17 @@
+<h1>Hey, it's all them dogzzzz</h1>
+
+<ul>
+  <% @dogs.each do |dog| %>
+    <li>
+      <a  href=<%= "/dogs/#{dog.id}" %> >
+        <%= dog.name %> is <%= dog.age %> years old
+      </a>
+
+      <form action="/dogs/<%= dog.id %>" method="post">
+        <input type="hidden" name="_method" value="delete" />
+        <input id="mysubmit" type="submit" value="Delete <%= "#{dog.name} :("%>" />
+      </form>
+      <br>
+    </li>
+  <% end %>
+</ul>

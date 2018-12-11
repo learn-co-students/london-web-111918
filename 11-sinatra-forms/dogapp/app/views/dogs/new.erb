@@ -1,0 +1,15 @@
+<h1>Create new Dog</h1>
+
+<a href="/dogs">Go back</a>
+
+<form action="/dogs" method="POST">
+  <div>
+    <label for="name"> Name:</label>
+    <input id="name" type="text" name="dog[name]" />
+  </div>
+  <div>
+    <label for="age">Age:</label>
+    <input id="age" type="text" name="dog[age]" />
+  </div>
+  <input type="submit" value="Create new Dog" />
+</form>

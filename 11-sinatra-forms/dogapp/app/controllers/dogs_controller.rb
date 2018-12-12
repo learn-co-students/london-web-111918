@@ -6,7 +6,7 @@ class DogsController < ApplicationController
     erb :"dogs/index"
   end
 
-  # create
+  # new
   get "/dogs/new" do
     erb :"dogs/new"
   end
@@ -30,4 +30,30 @@ class DogsController < ApplicationController
     redirect "/dogs"
   end
 
+  # edit
+  get "/dogs/:id/edit" do
+    @dog = Dog.find(params[:id])
+    erb :"dogs/edit"
+  end
+
+  # update
+  patch "/dogs/:id" do
+    dog = Dog.find(params[:id])
+    dog.update(params[:dog])
+    redirect "/dogs/#{dog.id}"
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+p 'eof'

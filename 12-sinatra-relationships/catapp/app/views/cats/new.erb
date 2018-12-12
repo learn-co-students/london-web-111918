@@ -1,0 +1,25 @@
+<h1> Make a new cat </h1>
+
+<form action="/cats" method="post">
+
+  <label for="name">Name:</label>
+  <input id="name" type="text" name="cat[name]">
+  <label for="breed">Breed:</label>
+  <input id="breed" type="text" name="cat[breed]">
+
+  <% @humans.each do |human| %>
+    <div class="">
+      <input
+        type="checkbox"
+        id="human-<%= human.id %>"
+        name="cat[human_ids][]"
+        value="<%= human.id %>"
+      >
+      <label for="human-<% human.id %>">
+        <%= human.name %>
+      </label>
+    </div>
+  <% end %>
+
+  <input type="submit" value="create a new cat">
+</form>

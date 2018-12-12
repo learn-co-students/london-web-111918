@@ -1,0 +1,35 @@
+<h1> <%= @cat.name %> </h1>
+
+<hr>
+
+<p> This is a cat, called <%= @cat.name %> </p>
+<p> And its breed is <%= @cat.breed %> </p>
+
+<% if @cat.humans.length > 0  %>
+  <h2>here are the humans that that cat is sometimes living with</h2>
+  <ul>
+    <% @cat.humans.each do |human| %>
+      <li>
+          <a href="/humans/<%= human.id %>"> <%= human.name %> </a>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>That cat has no humans. They are independent like that.</p>
+<% end %>
+
+<br>
+<% if @cat.toys.length > 0 %>
+  <h2>here are the toys</h2>
+  <ul>
+    <% @cat.toys.each do |toy| %>
+      <li>
+          <%= toy.name %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+    <p>That cat has no toys. Out of boredom it may scratch your face off.</p>
+<% end %>
+
+<a href="/toys/new"> Add a toy!</a>

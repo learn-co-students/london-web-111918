@@ -1,0 +1,30 @@
+<h1> Edit a human </h1>
+
+<form action="/humans/<%= @human.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+  <label for="name">Name:</label>
+  <input
+    id="name"
+    type="text"
+    name="human[name]"
+    value="<%= @human.name %>"
+  >
+
+  <% @cats.each do |cat| %>
+    <div class="">
+      <input
+        type="checkbox"
+        id="cat-<%= cat.id %>"
+        name="human[cat_ids][]"
+        value="<%= cat.id %>"
+        <% if @human.cat_ids.include?(cat.id) %> checked <% end %>
+      >
+      <label for="cat-<% cat.id %>">
+        <%= cat.name %>
+      </label>
+    </div>
+  <% end %>
+
+  <input type="submit" value="edit that human">
+</form>

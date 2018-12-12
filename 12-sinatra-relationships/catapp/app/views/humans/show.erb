@@ -1,0 +1,28 @@
+<h1> <%= @human.name %> </h1>
+
+<a href="/humans"> Go back </a>
+
+<hr>
+
+<p> This is a human, called <%= @human.name %> </p>
+
+<% if @human.cats.length > 0  %>
+  <h2>here are the cats that the human is sometimes living with</h2>
+  <ul>
+    <% @human.cats.each do |cat| %>
+      <li>
+          <a href="/cats/<%= cat.id %>"> <%= cat.name %> </a>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>That human has no cats. Sad life.</p>
+<% end %>
+
+<hr>
+<br>
+<br>
+
+<a href="/humans/<%= @human.id %>/edit"> edit me pls</a>
+
+<hr>

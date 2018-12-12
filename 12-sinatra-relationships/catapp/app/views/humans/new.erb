@@ -1,0 +1,22 @@
+<h1>New Human</h1>
+
+<form action="/humans" method="post">
+  <label for="name"> Name: </label>
+  <input id="name" type="text" name="human[name]">
+
+  <hr>
+  <% @cats.each do |cat| %>
+    <input
+      type="checkbox"
+      id="cat-<%= cat.id %>"
+      name="human[cat_ids][]"
+      value="<%= cat.id %>"
+    >
+    <label for="cat-<%= cat.id %>">
+      <%= cat.name %>
+    </label>
+  <% end %>
+
+  <hr>
+  <input type="submit">
+</form>

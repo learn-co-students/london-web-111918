@@ -1,0 +1,15 @@
+<h1>all humans</h1>
+
+<a href="/humans/new">new human</a>
+
+<hr>
+
+<ul>
+  <% @humans.each do |human| %>
+    <li>
+      <a href= <%= "/humans/#{human.id}" %> >
+        <%= human.name %>
+      </a>
+    </li>
+  <% end %>
+</ul>

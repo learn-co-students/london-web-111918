@@ -1,0 +1,14 @@
+<h1> <%= @human.name %> </h1>
+
+<% if @human.cats.empty? %>
+  <p>This human has been neglected by all cats :( </p>
+<% else %>
+  <p> This person is periodically blessed by the presence of these cats: </p>
+  <% @human.cats.each do |cat| %>
+    <p> <%= cat.name %> </p>
+  <% end %>
+<% end %>
+
+
+
+<a href="/humans"> go back</a>

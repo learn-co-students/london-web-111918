@@ -1,0 +1,19 @@
+<h1>New Toy</h1>
+
+<form action="/toys" method="post">
+  <label for="name"> Name: </label>
+  <input id="name" type="text" name="toy[name]">
+
+
+  <label for="cat_select"> Cat: </label>
+  
+  <select id="cat_select" name="toy[cat_id]">
+    <% @cats.each do |cat| %>
+      <option value="<%= cat.id %>">
+        <%= cat.name %>
+      </option>
+    <% end %>
+  </select>
+
+  <input type="submit">
+</form>

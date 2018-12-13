@@ -25,15 +25,19 @@ class HumansController < ApplicationController
     erb :"humans/show"
   end
 
-  # edit
+  # edit - returning a form for a human, prefilled w/ data
   get "/humans/:id/edit" do
     @human = Human.find(params[:id])
+    @cats = Cat.all
     erb :"humans/edit"
   end
 
   # update
   patch "/humans/:id" do
     human = Human.find(params[:id])
+    if !params[:human][:cat_ids]
+      params[:human][:cat_ids] = []
+    end
     human.update(params[:human])
     redirect "/humans/#{human.id}"
   end

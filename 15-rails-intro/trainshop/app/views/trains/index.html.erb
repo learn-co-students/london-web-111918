@@ -1,0 +1,15 @@
+<h1>trains</h1>
+
+<% @trains.each do |train| %>
+  <p>
+    <%= link_to train.name, train %>
+    costs
+    <%= train.price %>
+    and it is
+    <% if train.cool %>
+      cool
+    <% else %>
+      <span style="color: red;"> not cool </span>
+    <% end %>
+  </p>
+<% end %>

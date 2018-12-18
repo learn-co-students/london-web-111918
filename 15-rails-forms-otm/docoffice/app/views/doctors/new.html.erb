@@ -1,0 +1,13 @@
+<h2>Create a new doctor</h2>
+
+<%= link_to 'back', doctors_path %>
+
+<%= form_for @doctor do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :speciality %>
+  <%= f.text_field :speciality %>
+
+  <%= f.submit %>
+<% end %>

@@ -22,6 +22,8 @@ class DoctorsController < ApplicationController
 
   def update
     @doctor.update(doctor_params)
+    redirect_to doctor_path(@doctor)
+
   end
 
   def destroy
@@ -35,7 +37,7 @@ class DoctorsController < ApplicationController
   end
 
   def doctor_params
-    params.require(:doctor).permit(:name, :speciality)
+    params.require(:doctor).permit(:name, :speciality, chicken_ids: [])
   end
 
 end

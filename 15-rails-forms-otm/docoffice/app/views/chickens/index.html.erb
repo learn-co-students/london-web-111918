@@ -1,0 +1,11 @@
+<h2>All chickens</h2>
+
+<%= link_to 'create a chicken', new_chicken_path %>
+
+<ul>
+  <% @chickens.each do |chicken| %>
+    <li>
+      <%= link_to chicken.name, chicken %> | <%= link_to 'edit', edit_chicken_path(chicken) %>
+    </li>
+  <% end %>
+</ul>

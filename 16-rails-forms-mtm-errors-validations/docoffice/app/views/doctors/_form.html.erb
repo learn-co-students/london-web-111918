@@ -1,0 +1,13 @@
+<%= link_to 'back', doctors_path %>
+
+<%= form_for @doctor do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :speciality %>
+  <%= f.text_field :speciality %>
+
+  <%= f.collection_check_boxes(:chicken_ids, Chicken.all, :id, :name) %>
+
+  <%= f.submit %>
+<% end %>

@@ -2,4 +2,16 @@
 
 <p> <%= @doctor.speciality %> </p>
 
+<p>Chickens:</p>
+
+<% @doctor.chickens.each do |c| %>
+  <p> --- <%= c.name %> </p>
+<% end %>
+
+<p>Patients:</p>
+
+<% @doctor.patients.each do |p| %>
+  <p> --- <%= p.name %> </p>
+<% end %>
+
 <%= link_to 'see all doctors', doctors_path  %>

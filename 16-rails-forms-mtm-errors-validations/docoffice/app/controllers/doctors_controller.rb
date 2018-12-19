@@ -10,14 +10,21 @@ class DoctorsController < ApplicationController
 
   def new
     @doctor = Doctor.new
+    @chickens = Chicken.all
   end
 
   def create
     @doctor = Doctor.create(doctor_params)
-    redirect_to doctors_path
+    if @doctor.valid?
+      redirect_to doctors_path
+    else
+      flash[:errors] = @doctor.errors.full_messages
+      redirect_to new_doctor_path
+    end
   end
 
   def edit
+    @chickens = Chicken.all
   end
 
   def update
@@ -37,7 +44,7 @@ class DoctorsController < ApplicationController
   end
 
   def doctor_params
-    params.require(:doctor).permit(:name, :speciality, chicken_ids: [])
+    params.require(:doctor).permit(:name, :speciality, chicken_ids: [], patient_ids: [])
   end
 
 end

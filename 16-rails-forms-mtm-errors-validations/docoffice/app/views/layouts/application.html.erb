@@ -11,6 +11,15 @@
 
   <body>
     <h1>Doctor app</h1>
+    <% if flash[:errors] %>
+      <ul>
+        <% flash[:errors].each do |e| %>
+          <li style="color: red;">
+            <%= e %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
     <%= yield %>
   </body>
 </html>

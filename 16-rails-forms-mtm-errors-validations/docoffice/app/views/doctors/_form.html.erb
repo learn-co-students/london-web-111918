@@ -7,7 +7,19 @@
   <%= f.label :speciality %>
   <%= f.text_field :speciality %>
 
-  <%= f.collection_check_boxes(:chicken_ids, Chicken.all, :id, :name) %>
+  <hr>
+  
+  <h2>Chickens</h2>
+
+  <%= f.collection_check_boxes(:chicken_ids, @chickens, :id, :name) %>
+
+  <hr>
+
+  <h2>Patients</h2>
+
+  <%= f.collection_check_boxes(:patient_ids, Patient.all, :id, :name) %>
+
+  <hr>
 
   <%= f.submit %>
 <% end %>

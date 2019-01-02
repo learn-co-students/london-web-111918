@@ -1,0 +1,16 @@
+<%= link_to 'back', chickens_path %>
+
+<%= form_for @chicken do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :age %>
+  <%= f.number_field :age %>
+
+  <%= f.label :feathers_num %>
+  <%= f.number_field :feathers_num %>
+
+  <%= f.collection_select(:doctor_id, Doctor.all, :id, :name) %>
+
+  <%= f.submit %>
+<% end %>

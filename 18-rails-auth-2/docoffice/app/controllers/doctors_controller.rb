@@ -2,18 +2,10 @@ class DoctorsController < ApplicationController
   before_action :find_doc, only: [:show, :edit, :update, :destroy]
 
   def index
-    session[:doctors_seen] ||= []
-    @doctors = Doctor.all.reject { |doc| session[:doctors_seen].include?(doc.id) }
-    # byebug
+    @doctors = Doctor.all
   end
 
   def show
-    if session[:doctors_seen]
-      session[:doctors_seen] << @doctor.id
-    else
-      session[:doctors_seen] = []
-      session[:doctors_seen] << @doctor.id
-    end
   end
 
   def new

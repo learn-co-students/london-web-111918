@@ -10,8 +10,17 @@
   </head>
 
   <body>
-    <%= session.id %>
-    <h1>Doctor app</h1>
+    <h1><%= link_to 'Doctor app', '/doctors'%></h1>
+
+    <% if !logged_in? %>
+      <%= link_to 'login', login_path %>
+      <%= link_to 'signup', '/signup' %>
+    <% else %>
+      <h3> Hello, <%= current_user.name  %> </h3>
+      <%=  link_to "log out", logout_path, method: "post" %>
+      <%= link_to 'my patient record', user_path(current_user.id) %>
+    <% end %>
+
     <% if flash[:errors] %>
       <ul>
         <% flash[:errors].each do |e| %>
@@ -21,6 +30,13 @@
         <% end %>
       </ul>
     <% end %>
+
+    <% if flash[:authorized] %>
+      <p style="color: red;">
+        <%= flash[:authorized] %>
+      </p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

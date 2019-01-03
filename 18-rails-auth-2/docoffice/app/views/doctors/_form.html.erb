@@ -1,0 +1,25 @@
+<%= link_to 'back', doctors_path %>
+
+<%= form_for @doctor do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :speciality %>
+  <%= f.text_field :speciality %>
+
+  <hr>
+  
+  <h2>Chickens</h2>
+
+  <%= f.collection_check_boxes(:chicken_ids, @chickens, :id, :name) %>
+
+  <hr>
+
+  <h2>Patients</h2>
+
+  <%= f.collection_check_boxes(:patient_ids, Patient.all, :id, :name) %>
+
+  <hr>
+
+  <%= f.submit %>
+<% end %>

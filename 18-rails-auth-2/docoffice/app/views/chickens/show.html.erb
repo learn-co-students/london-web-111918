@@ -1,0 +1,11 @@
+<h2> <%= @chicken.name %> </h2>
+
+<p> <%= @chicken.age %> </p>
+
+<% if @chicken.doctor %>
+  <p>This chicken belongs to <%= link_to @chicken.doctor.name, @chicken.doctor %> </p>
+<% else %>
+  <p>This chicken is free</p>
+<% end %>
+
+<%= link_to 'see all chickens', chickens_path  %>

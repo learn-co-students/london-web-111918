@@ -1,0 +1,47 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* body {
+  background-image: url(https://cdn3.vectorstock.com/i/1000x1000/86/32/lined-or-ruled-paper-background-vector-15888632.jpg)
+} */
+* {
+  font-family: sans-serif;
+}
+.container {
+  max-width: 300px;
+  margin: 1em auto;
+}
+.beta {
+  font-size: .5em;
+  color: rebeccapurple;
+}
+ul {
+  margin: 0 auto;
+  padding: 0;
+}
+
+input, button {
+  font-size: 1em;
+  padding: 1em;
+  width: 100%;
+}
+.card {
+  display: block;
+  width: 100%;
+  background-color: #FFF;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  margin: 1em 0;
+  padding: 1em;
+  transition: opacity .5s;
+}
+
+
+.done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}

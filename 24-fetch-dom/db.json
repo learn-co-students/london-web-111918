@@ -1,0 +1,14 @@
+{
+  "pokemons": [
+    {
+      "id": 1,
+      "name": "pikachu",
+      "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png"
+    },
+    {
+      "name": "Jigglypuff",
+      "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/039.png",
+      "id": 2
+    }
+  ]
+}

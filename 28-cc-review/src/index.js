@@ -1,7 +1,8 @@
-let imageId = 1873 //Enter the id from the fetched image here
-const imageURL = `https://randopic.herokuapp.com/images/${imageId}`
-const likeURL = `https://randopic.herokuapp.com/likes/`
-const commentsURL = `https://randopic.herokuapp.com/comments/`
+const baseUrl = 'http://localhost:3000'
+let imageId = 1 //Enter the id from the fetched image here
+const imageURL = baseUrl + `/images/${imageId}`
+const likeURL = baseUrl + `/likes/`
+const commentsURL = baseUrl + `/comments/`
 
 const imgEl = document.querySelector('#image')
 const titleEl = document.querySelector('#name')

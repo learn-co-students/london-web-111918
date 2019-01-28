@@ -1,0 +1,11 @@
+{
+  "name": "mod3-cc",
+  "version": "1.0.0",
+  "description": "Mod 3 Round 1 Code Challenge",
+  "main": "index.js",
+  "scripts": {
+    "start": "open index.html && cd server && bundle install && rails db:reset && rails s"
+  },
+  "author": "",
+  "license": "ISC"
+}

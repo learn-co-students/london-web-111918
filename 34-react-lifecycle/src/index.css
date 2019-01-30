@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  margin-top: 10vh;
+  height: 100vh;
+  width: 100vw
+}
+
+img {
+  width: 300px
+}
+
+#app {
+  display: grid;
+  grid-template-rows: 8vw 30vw;
+}
+
+.app-children {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center
+}
+
+#digital {
+  font-family: 'Orbitron', sans-serif;
+  background-color: black;
+  color: green;
+  width: 25vw;
+  height: 6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.5vw;
+  border: 1vw solid grey;
+}
+
+#ticker {
+  font-family: 'Orbitron', sans-serif;
+  background-color: black;
+  color: white;
+  width: 30vw;
+  height: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.5vw;
+  border: 1vw solid grey;
+}
+
+button {
+  height: 5vw;
+  font-size: 3.5vw;
+  border-radius: 2vw;
+  background-color: black;
+  color: white;
+}
+
+.clock-container {
+  display: flex;
+  text-align: center;
+  align-content: center;
+}
+
+.clock {
+  width: 15rem;
+  height: 15rem;
+  border:20px solid maroon;
+  border-radius:50%;
+  margin:50px auto;
+  position: relative;
+  padding:2rem;
+  box-shadow:
+    0 0 0 4px rgba(0,0,0,0.2),
+    inset 0 0 0 3px #EFEFEF,
+    inset 0 0 10px black,
+    0 0 10px rgba(0,0,0,0.3);
+}
+.clock-face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-3px); /* account for the height of the clock hands */
+}
+.hand {
+  width:50%;
+  height:6px;
+  background:black;
+  position: absolute;
+  top:50%;
+  transform-origin: 100%;
+  transform: rotate(90deg);
+  transition: all 0.05s;
+  transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+}
+
+.button {
+    background-color: #008CBA; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}

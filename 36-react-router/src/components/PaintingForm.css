@@ -1,0 +1,10 @@
+#painting-form {
+  text-align: center;
+}
+
+#painting-form input {
+  margin: 4px;
+  padding: 4px;
+  border: solid black 1px;
+  border-radius: 3px;
+}

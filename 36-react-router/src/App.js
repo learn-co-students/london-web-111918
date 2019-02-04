@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Route, Switch, withRouter } from "react-router-dom";
 import paintings from "./painting-data";
 import Navbar from "./components/Navbar";
 import PaintingList from "./components/PaintingList";
@@ -7,7 +8,6 @@ import AdvancedSearchForm from "./components/AdvancedSearchForm";
 
 class App extends Component {
   state = {
-    showDetails: null,
     searchTerm: "",
     showAdvancedSearch: false,
     paintings: paintings
@@ -18,8 +18,14 @@ class App extends Component {
     this.setState({ paintings: newPaintings });
   };
 
-  handleShowDetails = singlePainting => {
-    this.setState({ showDetails: singlePainting });
+  getPaintingById = id => {
+    const painting = this.state.paintings.find(painting => painting.id === id);
+
+    return painting
+      ? painting
+      : {
+          error: "painting not found"
+        };
   };
 
   handleSearchChange = searchTerm => {
@@ -29,16 +35,14 @@ class App extends Component {
       - obviously you'd want to implemenbt more complicated search/filter function to use  with the <AdvancedSearchForm>
     */
     const singleSearchTerm = searchTerm.title ? searchTerm.title : searchTerm;
-    this.setState({
-      searchTerm: singleSearchTerm
-    });
-  };
-
-  handleToggleAdvancedSearch = () => {
-    this.setState({
-      showAdvancedSearch: !this.state.showAdvancedSearch,
-      searchTerm: "" // reset search form  when toggling  between simple and advanced
-    });
+    this.setState(
+      {
+        searchTerm: singleSearchTerm
+      },
+      () => {
+        this.props.history.push("/paintings");
+      }
+    );
   };
 
   filterPaintings = () => {
@@ -67,38 +71,36 @@ class App extends Component {
           showAdvancedSearch={this.state.showAdvancedSearch}
         />
 
-        {/*
-            Little extra to demo controlled Forms:
-            - <Navbar> has a toggle, that calls handleToggleAdvancedSearch  in this component.
-            - advanced search renders big search component <AdvancedSearchForm> and hides the simple search form.
-            - onSubmit it'll set state.searchTerm which will trigger a re-render
-        */}
-
-        {this.state.showAdvancedSearch && (
-          <AdvancedSearchForm onSearchSubmit={this.handleSearchChange} />
-        )}
-
-        {/*
-            Change what the component renders based on STATE! Show either:
-            - the details of the project saved in state.showDetails
-            - or show the list of all paintings if we don't have any details (state.showDetails === null)
-            - NOTE: the prefix `!this.state.showAdvancedSearch && ` is just to make sure we don't render the AdvancedSearchForm AND the PaintingsList at the same time.
-        */}
-        {!this.state.showAdvancedSearch && this.state.showDetails ? (
-          <PaintingDetails
-            painting={this.state.showDetails}
-            onShowDetails={this.handleShowDetails}
-            searchTerm={this.state.searchTerm}
+        <Switch>
+          <Route
+            path="/search"
+            component={() => (
+              <AdvancedSearchForm onSearchSubmit={this.handleSearchChange} />
+            )}
           />
-        ) : (
-          <PaintingList
-            paintings={this.filterPaintings()}
-            onShowDetails={this.handleShowDetails}
+
+          <Route
+            path="/paintings/:paintingId"
+            component={({ match }) => (
+              <PaintingDetails
+                painting={this.getPaintingById(match.params.paintingId)}
+              />
+            )}
           />
-        )}
+
+          <Route
+            path="/paintings"
+            exact
+            component={() => (
+              <PaintingList paintings={this.filterPaintings()} />
+            )}
+          />
+
+          <Route component={() => <h2>Page not found</h2>} />
+        </Switch>
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

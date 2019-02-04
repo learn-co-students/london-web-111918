@@ -1,17 +1,14 @@
 import React from "react";
 import "./Painting.css";
 
+import { Link } from "react-router-dom";
+
 const Painting = props => (
-  <div
-    className="painting"
-    onClick={() => {
-      props.onShowDetails(props.painting);
-    }}
-  >
+  <Link as="div" className="painting" to={`/paintings/${props.painting.id}`}>
     <h3>{props.painting.title}</h3>
     <p>{props.painting.artist.name}</p>
     <img src={props.painting.image} />
-  </div>
+  </Link>
 );
 
 export default Painting;

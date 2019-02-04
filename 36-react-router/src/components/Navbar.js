@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, withRouter } from "react-router-dom";
 
 class Navbar extends React.Component {
   state = {
@@ -14,20 +15,27 @@ class Navbar extends React.Component {
   render() {
     return (
       <div className={`ui inverted ${this.props.color} menu`}>
-        <a className="item">
+        <Link to="/paintings" className="item">
           <h2 className="ui header">
             <i className={`${this.props.icon} icon`} />
             <div className="content">{this.props.title}</div>
             <div className="sub header">{this.props.subtitle}</div>
           </h2>
-        </a>
+        </Link>
         <div class="right menu">
-          <a class="ui item" onClick={this.props.onToggleAdvancedSearch}>
-            {this.props.showAdvancedSearch
+          <Link
+            class="ui item"
+            to={
+              this.props.location.pathname.includes("/search")
+                ? "/paintings"
+                : "/search"
+            }
+          >
+            {this.props.location.pathname.includes("/search")
               ? "Simple Search"
               : "Advanced Search"}
-          </a>
-          {!this.props.showAdvancedSearch && (
+          </Link>
+          {!this.props.location.pathname.includes("/search") && (
             <div class="item">
               <div class="ui icon input">
                 <input
@@ -45,4 +53,4 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

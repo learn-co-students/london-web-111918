@@ -6,11 +6,7 @@ import Painting from "./Painting";
 const PaintingList = props => (
   <div className="painting-list">
     {props.paintings.map(singlePainting => (
-      <Painting
-        painting={singlePainting}
-        key={singlePainting.id}
-        onShowDetails={props.onShowDetails}
-      />
+      <Painting painting={singlePainting} key={singlePainting.id} />
     ))}
   </div>
 );

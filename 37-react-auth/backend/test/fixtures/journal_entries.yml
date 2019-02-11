@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  note: MyString
+  mood: MyString
+  location: MyString
+
+two:
+  note: MyString
+  mood: MyString
+  location: MyString

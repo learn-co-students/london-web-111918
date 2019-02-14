@@ -1,68 +1,188 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Introduction to Redux
 
-## Available Scripts
+### Problems of React
 
-In the project directory, you can run:
+- State is ever-changing and is constantly being mutated in React.
+- Large React apps require props to be passed needlessly throughout the component tree.
+- React apps with tons of stateful components are constantly rerendering.
 
-### `npm start`
+### The Solution: Redux
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- What Is Redux?
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+  - The goal of Redux is to make state **global** and make all state changes **predictable**
+  - Redux at its core is a state manager built for React.js
+  - The main concept behind Redux is to store state in a central location and allow each component to access that state without having to send props down to child components or use callback functions to send data back up to the parent
 
-### `npm test`
+- Why Redux?
+  - As your React applications become increasingly more complex, State becomes increasingly harder to manage
+  - An app with 20+ stateful components in its structure ignores the single source of truth principle and changes in state are difficult to track
+  - Redux alleviates these issues by placing state in a single, central location that all of your components can interact with
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Single Source of Truth
 
-### `npm run build`
+- We use the Redux store to contain a singular and universal state within our application.
+- Redux Store
+  - The Redux store is a plain JS object that exposes a few Redux specific methods like `dispatch` and `getState`. Our applications state lives here
+  - The store is created at the very beginning of an application with the `createStore` function
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Reading and Writing to the Store
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- With Redux, the state of our application will actually never _change_. Instead, the `store` is alerted of changes and returns a new state based off of the previous state and incoming alterations.
+- The state can be accessed by the method `getState`, a reader method
+- The state can be manipulated by sending an "action" to a method called `dispatch`
+  - An action is a plain object containing the instructions and information that describes the state changes we expect to see
+  - Actions typically have two keys:
+    - `type`: a string used to identify the type of state change
+    - `payload`: any data needed to complete the state change
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Pure Functions: Reducers
 
-### `npm run eject`
+- When we get an action telling us how the state should change, we use pure functions called reducers that do not mutate state but instead return an entirely new state to replace the old one
+- Reducers
+  - A reducer function's job is to read an action and return newly updated state
+  - When a Redux store is created via `createStore`, the reducer is given as its first argument
+  - A reducer function receives two arguments: the current state and an `action` object
+  - The return value of the reducer function will become the new state
+  - An easy way to remember the role of a reducer is that it takes two arguments and _reduces_ them to one thing, the new state
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Unidirectional Flow
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Manipulating the Redux store can be broken down to a series of unidirectional steps
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  1. Component triggers an action
+  2. Action sent to reducer
+  3. Reducer returns the new state
+  4. Change in store causes rerender in components that rely on the piece of state that changed
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Common Hurdles of Redux
 
-## Learn More
+- Global State:
+  - Previously, state existed in multiple locations and students were comfortable constructing stateful components. At first, it may seem odd to relocate every piece of their state to one place, but give it a shot, it'll make your lives easier in the long run.
+- Reducers:
+  - The main role of a reducer is to interpret dispatched messages and tell the store to return a new version state.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Introducing Redux - The Plumbing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Installing redux: `yarn add redux`
 
-### Code Splitting
+Creating our redux store:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```js
+import { createStore } from "redux";
+const reducer = (oldState, action) => {
+  if (oldState === undefined) {
+    return {};
+  }
+  return oldState;
+};
 
-### Analyzing the Bundle Size
+const store = createStore(reducer);
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Designing our state
 
-### Making a Progressive Web App
+- Starting to think in Redux
+- 'Shape' of our state: keys in our store and the _types_ of the values
+- e.g. "`count` will be a number. `friends` will be an array of Friend objects. `loading` will be a boolean.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+> Note: This is just like step 3 of Thinking in React. We _just_ need to figure out the shape of the state, not where it lives.
 
-### Advanced Configuration
+- What should the initial state be?
+- Redux init action - `"@@redux/INITxyz"`
+- Warning on returning `undefined` from our store
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### Reading from the store
 
-### Deployment
+We want to read the count from the store
+We can get the current state with `getState`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+```js
+// instead of this.props.count
+store.getState().count;
+```
 
-### `npm run build` fails to minify
+**We no longer depend on props!**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Dispatching Actions to our store
+
+- What are the things that can happen in our app?
+- These will become the _actions_ that our store responds to
+
+Action: A plain old javascript object (POJO) with the key `type`, a string. Optionally, more data.
+
+```js
+{
+  type: "CLICKED_PLUS";
+}
+```
+
+```js
+increment = () => {
+  store.dispatch({ type: "CLICKED_PLUS" });
+};
+
+decrement = () => {
+  store.dispatch({ type: "CLICKED_MINUS" });
+};
+```
+
+Q: Where should these functions live?
+A: Wherever you like! They don't depend on `setState`, so they can be defined in the component where they are used.
+
+## Updating State
+
+Let's see the actions flow through our reducer:
+
+```js
+const reducer = (oldState = { count: 0 }, action) => {
+  console.log("action", action);
+  return oldState;
+};
+```
+
+_Rule: we must not mutate the old state!_
+
+Our reducer should return a _new_ object with the updated state
+
+```js
+const reducer = (oldState = { count: 0 }, action) => {
+  console.log("action", action);
+  if (action.type === "CLICKED_PLUS") {
+    return { count: oldState.count + 1 };
+  }
+  return oldState;
+};
+```
+
+If we expect to return different states based on different actions, we can use a switch statement:
+
+```js
+const reducer = (oldState = { count: 0 }, action) => {
+  console.log("action", action);
+  switch (action.type) {
+    case "CLICKED_PLUS":
+      return { count: oldState.count + 1 };
+    case "CLICKED_MINUS":
+      return { count: oldState.count - 1 };
+    default:
+      return oldState;
+  }
+};
+```
+
+### Why isn't our view updating?
+
+The redux store is changing! (We can see if we log it)
+
+React only rerenders on props or state change. We need a little hack to make our store updates rerender our app.
+
+```js
+componentDidMount() {
+  store.subscribe(() => this.forceUpdate())
+}
+```
+
+## Challenge
+
+Add buttons, actions, and cases to your reducer so that we can increment and decrement by `+3` and `-5`

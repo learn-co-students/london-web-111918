@@ -1,23 +1,40 @@
 import React, { Component } from "react";
 import "./App.css";
 
+import { createStore } from "redux";
+
+const reducer = (oldState = { count: 0 }, action) => {
+  switch (action.type) {
+    case "INCREMENT_COUNTER":
+      return { ...oldState, count: oldState.count + 1 };
+    case "DECREMENT_COUNTER":
+      return { ...oldState, count: oldState.count - 1 };
+    default:
+      return oldState;
+  }
+};
+
+const store = createStore(reducer);
+
 class App extends Component {
-  state = { count: 0 };
+  componentDidMount() {
+    store.subscribe(() => this.forceUpdate());
+  }
 
   increment = () => {
-    this.setState(prevState => ({ count: prevState.count + 1 }));
+    store.dispatch({ type: "INCREMENT_COUNTER" });
   };
 
   decrement = () => {
-    this.setState(prevState => ({ count: prevState.count - 1 }));
+    store.dispatch({ type: "DECREMENT_COUNTER" });
   };
 
   render() {
     return (
       <div className="App">
-        <Header count={this.state.count} />
+        <Header count={store.getState().count} />
         <Counter
-          count={this.state.count}
+          count={store.getState().count}
           increment={this.increment}
           decrement={this.decrement}
         />
